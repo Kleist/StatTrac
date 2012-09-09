@@ -1,0 +1,5 @@
+package com.kleist.stattrac;
+
+public enum StatEvent {
+	INCOMPLETE, CATCH, FIRSTDOWN, TOUCHDOWN, EXTRAPOINT, TWOPOINTCONVERSION, SAFETY, SACK
+}
