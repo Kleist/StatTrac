@@ -3,7 +3,16 @@ package com.kleist.stattrac;
 import java.util.EnumMap;
 
 public enum StatEvent {
-	INCOMPLETE, CATCH, FIRSTDOWN, TOUCHDOWN, EXTRAPOINT, TWOPOINTCONVERSION, SAFETY, SACK;
+	INCOMPLETE, CATCH, FIRSTDOWN, TOUCHDOWN, EXTRAPOINT, TWOPOINTCONVERSION, SAFETY, SACK, SACKED, INT_THROWN, INT_CAUGHT;
+	
+	public static Boolean defensiveStat(StatEvent event) {
+		switch (event) {
+		case INT_CAUGHT:
+		case SACK:
+			return true;
+		}
+		return false;
+	}
 
 	private static final EnumMap<StatEvent, Integer> pointsPerEvent_ = initPointsPerEvent();
 	

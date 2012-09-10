@@ -29,4 +29,7 @@ public class Player {
 	public void setStatCounter(StatCounter statCounter) {
 		statCounter_ = statCounter;
 	}
+
+	public void addEventAgainst(StatEvent event) {
+	}
 }
