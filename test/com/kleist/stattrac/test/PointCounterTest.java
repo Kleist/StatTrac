@@ -2,9 +2,11 @@ package com.kleist.stattrac.test;
 
 import static org.junit.Assert.assertEquals;
 
+import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.kleist.stattrac.Player;
 import com.kleist.stattrac.PointCounter;
 import com.kleist.stattrac.StatCounter;
 import com.kleist.stattrac.StatEvent;
@@ -16,7 +18,7 @@ public class PointCounterTest {
 
 	@Before 
 	public void setUp() {
-		statCounter = new StatCounter();
+		statCounter = new StatCounter(EasyMock.createMock(Player.class));
 		pointCounter = new PointCounter(statCounter);
 	}
 	

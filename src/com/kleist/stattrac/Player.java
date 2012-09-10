@@ -1,6 +1,6 @@
 package com.kleist.stattrac;
 
-public final class Player {
+public class Player {
 	private String name_;
 	private int number_;
 	private StatCounter statCounter_;
@@ -8,7 +8,6 @@ public final class Player {
 	public Player(String name, int number) {
 		name_ = name;
 		number_ = number;
-		statCounter_ = new StatCounter();
 	}
 
 	public String getName() {
