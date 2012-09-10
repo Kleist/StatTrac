@@ -31,4 +31,14 @@ public enum StatEvent {
 	public int getPoints() {
 		return pointsPerEvent_.get(this);
 	}
+
+	static boolean isTurnover(StatEvent event) {
+		switch (event) {
+		case EXTRAPOINT:
+		case INT_CAUGHT:
+		case INT_THROWN:
+			return true;
+		}
+		return false;
+	}
 }
