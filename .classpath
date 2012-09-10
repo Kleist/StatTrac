@@ -23,5 +23,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/andreas/Dropbox/Documents/Development/workspace/external/cglib.2.2.3/cglib-nodep-2.2.3.jar"/>
+	<classpathentry kind="lib" path="/Users/andreas/Dropbox/Documents/Development/workspace/external/easymock-3.1/easymock-3.1.jar"/>
+	<classpathentry kind="lib" path="/Users/andreas/Dropbox/Documents/Development/workspace/external/objenesis-1.2/objenesis-1.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
