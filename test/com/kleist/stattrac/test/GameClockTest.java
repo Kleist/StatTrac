@@ -26,21 +26,21 @@ public class GameClockTest {
 	
 	@Test
 	public void resetClockFormat() {
-		assertEquals("00:00.0", gameClock.getString());
+		assertEquals("20:00.0", gameClock.getString());
 	}
 
 	@Test
-	public void clockDoesntStopOnTurnoverBefore2Min() throws Exception {
+	public void clockCountsDown() throws Exception {
 		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 20000);
 		EasyMock.replay(clock);
-		assertEquals("00:20.0", gameClock.getString());
+		assertEquals("19:40.0", gameClock.getString());
 	}
 
 	@Test
 	public void clockCountsMinutesSecondsAndTenths() throws Exception {
 		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 61700);
 		EasyMock.replay(clock);
-		assertEquals("01:01.7", gameClock.getString());
+		assertEquals("18:58.3", gameClock.getString());
 	}
 	
 }
