@@ -30,10 +30,12 @@ public class GameClockTest {
 	}
 
 	@Test
-	public void clockCountsDown() {
+	public void clockCountsDownWhenStarted() {
+		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 10000);
 		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 20000);
 		EasyMock.replay(clock);
-		assertEquals("19:40.0", gameClock.getString());
+		gameClock.start();
+		assertEquals("19:50.0", gameClock.getString());
 	}
 
 	@Test
