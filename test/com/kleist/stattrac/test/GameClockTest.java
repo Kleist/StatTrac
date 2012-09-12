@@ -30,17 +30,27 @@ public class GameClockTest {
 	}
 
 	@Test
-	public void clockCountsDown() throws Exception {
+	public void clockCountsDown() {
 		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 20000);
 		EasyMock.replay(clock);
 		assertEquals("19:40.0", gameClock.getString());
 	}
 
 	@Test
-	public void clockCountsMinutesSecondsAndTenths() throws Exception {
+	public void clockCountsMinutesSecondsAndTenths() {
 		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 61700);
 		EasyMock.replay(clock);
 		assertEquals("18:58.3", gameClock.getString());
 	}
-	
+
+	@Test
+	public void pauseClock(){
+		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 1000);
+		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 2000);
+		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 3000);
+		EasyMock.replay(clock);
+		gameClock.pause();
+		assertEquals("19:59.0", gameClock.getString());
+		assertEquals("19:59.0", gameClock.getString());
+	}
 }
