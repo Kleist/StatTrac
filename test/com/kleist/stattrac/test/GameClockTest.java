@@ -30,7 +30,7 @@ public class GameClockTest {
 
 	private void setMockCallTimeDiff(long millisPerCall) {
 		for (int i=0; i<5; i++) {
-			EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) i*millisPerCall);
+			EasyMock.expect(clock.getMillis()).andReturn((long) i*millisPerCall);
 		}
 		EasyMock.replay(clock);
 	}
@@ -41,7 +41,7 @@ public class GameClockTest {
 
 	@Test
 	public void isStoppedOnConstruction() {
-		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 1000);
+		EasyMock.expect(clock.getMillis()).andReturn((long) 1000);
 		EasyMock.replay(clock);
 		assertEquals(GameClock.MILLIS_PER_HALF, gameClock.getMillisLeft());
 	}

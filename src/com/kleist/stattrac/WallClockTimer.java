@@ -1,7 +1,7 @@
 package com.kleist.stattrac;
 
 public class WallClockTimer {
-	public long getMilliSecondsSinceReset() {
+	public long getMillis() {
 		return System.currentTimeMillis();
 	}
 }

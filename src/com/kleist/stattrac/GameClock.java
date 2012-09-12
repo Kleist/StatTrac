@@ -29,7 +29,7 @@ public class GameClock {
 
 	private long getMillisPlayed() {
 		if (stopped_) return playedTimeUntilLastStart_;
-		else return playedTimeUntilLastStart_ + wallClock_.getMilliSecondsSinceReset() - startTime_;
+		else return playedTimeUntilLastStart_ + wallClock_.getMillis() - startTime_;
 	}
 	
 	public long getMillisLeft() {
@@ -41,12 +41,12 @@ public class GameClock {
 	}
 
 	public void stop() {
-		playedTimeUntilLastStart_ += wallClock_.getMilliSecondsSinceReset()-startTime_;
+		playedTimeUntilLastStart_ += wallClock_.getMillis()-startTime_;
 		stopped_ = true;
 	}
 
 	public void start() {
-		startTime_ = wallClock_.getMilliSecondsSinceReset();
+		startTime_ = wallClock_.getMillis();
 		stopped_ = false;
 	}
 
