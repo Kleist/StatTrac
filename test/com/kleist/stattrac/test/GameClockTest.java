@@ -6,53 +6,81 @@ import org.easymock.EasyMock;
 import org.junit.*;
 
 import com.kleist.stattrac.GameClock;
+import com.kleist.stattrac.GameClockFormatter;
 import com.kleist.stattrac.WallClockTimer;
 
 
 public class GameClockTest {
 	private GameClock gameClock;
+	private GameClockFormatter formatter;
 	private WallClockTimer clock;
 
 	@Before
 	public void setUp() {
 		clock = EasyMock.createMock(WallClockTimer.class);
+		formatter = EasyMock.createMock(GameClockFormatter.class);
 		gameClock = new GameClock();
 		gameClock.setClock(clock);
+		gameClock.setFormatter(formatter);
+	}
+	
+	private void mockOneSecondPerCall() {
+		setMockCallTimeDiff(GameClock.MILLIS_PER_SECOND);
+	}
+
+	private void setMockCallTimeDiff(long millisPerCall) {
+		for (int i=0; i<5; i++) {
+			EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) i*millisPerCall);
+		}
+		EasyMock.replay(clock);
 	}
 	
 	public GameClockTest() {
 		gameClock = new GameClock();
 	}
+
+	@Test
+	public void isStoppedOnConstruction() {
+		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 1000);
+		EasyMock.replay(clock);
+		assertEquals(GameClock.MILLIS_PER_HALF, gameClock.getMillisLeft());
+	}
 	
 	@Test
-	public void resetClockFormat() {
-		assertEquals("20:00.0", gameClock.getString());
-	}
-
-	@Test
 	public void clockCountsDownWhenStarted() {
-		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 10000);
-		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 20000);
-		EasyMock.replay(clock);
+		setMockCallTimeDiff(20*GameClock.MILLIS_PER_SECOND);
 		gameClock.start();
-		assertEquals("19:50.0", gameClock.getString());
+		assertEquals(GameClock.MILLIS_PER_HALF-20000, gameClock.getMillisLeft());
 	}
 
 	@Test
-	public void clockCountsMinutesSecondsAndTenths() {
-		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 61700);
-		EasyMock.replay(clock);
-		assertEquals("18:58.3", gameClock.getString());
+	public void stopClock() {
+		mockOneSecondPerCall();
+		gameClock.start();
+		gameClock.stop();
+		assertEquals(GameClock.MILLIS_PER_HALF-1000, gameClock.getMillisLeft());
+		assertEquals(GameClock.MILLIS_PER_HALF-1000, gameClock.getMillisLeft());
+	}
+	
+	@Test
+	public void startAndStopClock() {
+		mockOneSecondPerCall();
+		gameClock.start();
+		gameClock.stop();
+		assertEquals(GameClock.MILLIS_PER_HALF-1000, gameClock.getMillisLeft());
+		gameClock.start();
+		assertEquals(GameClock.MILLIS_PER_HALF-2000, gameClock.getMillisLeft());
+		gameClock.stop();
+		assertEquals(GameClock.MILLIS_PER_HALF-3000, gameClock.getMillisLeft());
 	}
 
-	@Test
-	public void pauseClock(){
-		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 1000);
-		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 2000);
-		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 3000);
-		EasyMock.replay(clock);
-		gameClock.pause();
-		assertEquals("19:59.0", gameClock.getString());
-		assertEquals("19:59.0", gameClock.getString());
+	@Test 
+	public void getStringCallsFormatter() {
+		mockOneSecondPerCall();
+		EasyMock.expect(formatter.formatTime(GameClock.MILLIS_PER_HALF-1000)).andReturn("abcd");
+		EasyMock.replay(formatter);
+		gameClock.start();
+		gameClock.stop();
+		assertEquals("abcd", gameClock.getString());
 	}
 }
