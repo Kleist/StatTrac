@@ -78,14 +78,18 @@ public class GameSituationTest {
 	}
 
 	@Test
-	public void clockCountsMinutesAndSeconds() throws Exception {
+	public void clockCountsMinutesSecondsAndTenths() throws Exception {
 		clock.resetClock();
-		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 61000);
+		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 61700);
 		EasyMock.replay(clock);
 
 		gameSituation.setPossession(Possession.HOME);
 		gameSituation.startGame();
 		gameSituation.turnover();
-		assertEquals("01:01.0", gameSituation.getGameClockString());
+		assertEquals("01:01.7", gameSituation.getGameClockString());
+	}
+	
+	@Test
+	public void scoreBoardContainsGameClock() {		
 	}
 }

@@ -4,8 +4,8 @@ public class GameSituation {
 	private static final int SECONDS_PER_MINUTE = 60;
 	private static final long MILLISECONDS_PER_SECOND = 1000;
 	private static final long MILLISECONDS_PER_MINUTE = SECONDS_PER_MINUTE*MILLISECONDS_PER_SECOND;
-	public Possession possession_ = Possession.NOT_SET;
-	private WallClockTimer wallClock_;
+	private Possession possession_ = Possession.NOT_SET;
+	private GameClock gameClock_ = new GameClock();
 
 	public GameSituation() {
 	}
@@ -32,15 +32,15 @@ public class GameSituation {
 	}
 
 	public void setClock(WallClockTimer clock) {
-		wallClock_ = clock;		
+		gameClock_.wallClock_ = clock;		
 	}
 
 	public void startGame() {
-		wallClock_.resetClock();
+		gameClock_.resetClock();
 	}
 
 	public String getGameClockString() {
-		long millis = wallClock_.getMilliSecondsSinceReset();
+		long millis = gameClock_.wallClock_.getMilliSecondsSinceReset();
 		int minutes = (int) (millis/MILLISECONDS_PER_MINUTE);
 		int seconds = (int) (millis/MILLISECONDS_PER_SECOND)%SECONDS_PER_MINUTE;
 		int tenthsOfASecond = (int)(millis/ (MILLISECONDS_PER_SECOND/10)) % 10;
