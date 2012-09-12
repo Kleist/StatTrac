@@ -23,7 +23,7 @@ public class GameSituationTest {
 	public void setUp() {
 		gameSituation = new GameSituation();
 		clock = EasyMock.createMock(WallClockTimer.class);
-		gameSituation.setClock(clock);
+		gameSituation.gameClock_.setClock(clock);
 	}
 	
 	@Test
@@ -56,40 +56,7 @@ public class GameSituationTest {
 	}
 	
 	@Test
-	public void resetClockOnGameStart() {
-		clock.resetClock();
-		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 0);
-		EasyMock.replay(clock);
-
-		gameSituation.startGame();
-		assertEquals("00:00.0", gameSituation.getGameClockString());
-	}
-
-	@Test
-	public void clockDoesntStopOnTurnoverBefore2Min() throws Exception {
-		clock.resetClock();
-		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 20000);
-		EasyMock.replay(clock);
-
-		gameSituation.setPossession(Possession.HOME);
-		gameSituation.startGame();
-		gameSituation.turnover();
-		assertEquals("00:20.0", gameSituation.getGameClockString());
-	}
-
-	@Test
-	public void clockCountsMinutesSecondsAndTenths() throws Exception {
-		clock.resetClock();
-		EasyMock.expect(clock.getMilliSecondsSinceReset()).andReturn((long) 61700);
-		EasyMock.replay(clock);
-
-		gameSituation.setPossession(Possession.HOME);
-		gameSituation.startGame();
-		gameSituation.turnover();
-		assertEquals("01:01.7", gameSituation.getGameClockString());
-	}
-	
-	@Test
-	public void scoreBoardContainsGameClock() {		
+	public void scoreBoardContainsGameClock() {
+		
 	}
 }

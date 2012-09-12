@@ -1,15 +1,9 @@
 package com.kleist.stattrac;
 
 public class GameSituation {
-	private static final int SECONDS_PER_MINUTE = 60;
-	private static final long MILLISECONDS_PER_SECOND = 1000;
-	private static final long MILLISECONDS_PER_MINUTE = SECONDS_PER_MINUTE*MILLISECONDS_PER_SECOND;
 	private Possession possession_ = Possession.NOT_SET;
-	private GameClock gameClock_ = new GameClock();
+	public GameClock gameClock_ = new GameClock();
 
-	public GameSituation() {
-	}
-	
 	public void setPossession(Possession poss) {
 		possession_ = poss;
 	}
@@ -32,18 +26,10 @@ public class GameSituation {
 	}
 
 	public void setClock(WallClockTimer clock) {
-		gameClock_.wallClock_ = clock;		
+		gameClock_.setClock(clock);		
 	}
 
 	public void startGame() {
 		gameClock_.resetClock();
-	}
-
-	public String getGameClockString() {
-		long millis = gameClock_.wallClock_.getMilliSecondsSinceReset();
-		int minutes = (int) (millis/MILLISECONDS_PER_MINUTE);
-		int seconds = (int) (millis/MILLISECONDS_PER_SECOND)%SECONDS_PER_MINUTE;
-		int tenthsOfASecond = (int)(millis/ (MILLISECONDS_PER_SECOND/10)) % 10;
-		return String.format("%02d:%02d.%01d", minutes, seconds, tenthsOfASecond);
 	}
 }
