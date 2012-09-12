@@ -35,7 +35,7 @@ public class GameStatsTest {
 	}
 
 	@Test
-	public void firstdownDoesntCausesTurnover() throws Exception {
+	public void firstdownDoesntCauseTurnover() throws Exception {
 		gameStats.addEvent(StatEvent.FIRSTDOWN, EasyMock.createMock(Player.class), null);
 	}
 
