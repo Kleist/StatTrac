@@ -8,6 +8,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static com.kleist.stattrac.test.Assertions.*;
+
 import com.kleist.stattrac.GameClock;
 import com.kleist.stattrac.GameSituation;
 import com.kleist.stattrac.Possession;
@@ -56,9 +58,16 @@ public class GameSituationTest {
 	}
 	
 	@Test
-	public void scoreBoardContainsGameClock() {
+	public void scoreBoardContainsGameClockWhenZero() {
 		EasyMock.expect(gameClock.getString()).andReturn("00:00.0");
 		EasyMock.replay(gameClock);
 		assertTrue(gameSituation.getScoreBoardString().contains("00:00.0"));
+	}
+
+	@Test
+	public void scoreBoardContainsGameClockWhenNonZero() {
+		EasyMock.expect(gameClock.getString()).andReturn("19:10.0");
+		EasyMock.replay(gameClock);
+		assertStringContains(gameSituation.getScoreBoardString(), "19:10.0");
 	}
 }

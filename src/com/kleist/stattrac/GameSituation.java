@@ -34,6 +34,6 @@ public class GameSituation {
 	}
 
 	public String getScoreBoardString() {
-		return "00:00.0";
+		return gameClock_.getString();
 	}
 }
