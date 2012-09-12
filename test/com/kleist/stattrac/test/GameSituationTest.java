@@ -8,22 +8,22 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.kleist.stattrac.GameClock;
 import com.kleist.stattrac.GameSituation;
 import com.kleist.stattrac.Possession;
-import com.kleist.stattrac.WallClockTimer;
 
 public class GameSituationTest {
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
 
 	private GameSituation gameSituation;
-	private WallClockTimer clock;
+	private GameClock gameClock;
 
 	@Before
 	public void setUp() {
 		gameSituation = new GameSituation();
-		clock = EasyMock.createMock(WallClockTimer.class);
-		gameSituation.gameClock_.setClock(clock);
+		gameClock = EasyMock.createMock(GameClock.class);
+		gameSituation.setGameClock(gameClock);
 	}
 	
 	@Test

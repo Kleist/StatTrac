@@ -25,11 +25,11 @@ public class GameSituation {
 		}
 	}
 
-	public void setClock(WallClockTimer clock) {
-		gameClock_.setClock(clock);		
-	}
-
 	public void startGame() {
 		gameClock_.resetClock();
+	}
+
+	public void setGameClock(GameClock gameClock) {
+		gameClock_ = gameClock;
 	}
 }
