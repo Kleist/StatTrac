@@ -11,7 +11,7 @@ public class GameClock {
 		wallClock_.resetClock();
 	}
 
-	public String toString() {
+	public String getString() {
 		long millis = wallClock_.getMilliSecondsSinceReset();
 		int minutes = (int) (millis/GameClock.MILLISECONDS_PER_MINUTE);
 		int seconds = (int) (millis/GameClock.MILLISECONDS_PER_SECOND)%GameClock.SECONDS_PER_MINUTE;

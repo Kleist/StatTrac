@@ -1,6 +1,6 @@
 package com.kleist.stattrac.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
@@ -57,6 +57,8 @@ public class GameSituationTest {
 	
 	@Test
 	public void scoreBoardContainsGameClock() {
-		
+		EasyMock.expect(gameClock.getString()).andReturn("00:00.0");
+		EasyMock.replay(gameClock);
+		assertTrue(gameSituation.getScoreBoardString().contains("00:00.0"));
 	}
 }

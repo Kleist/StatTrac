@@ -32,4 +32,8 @@ public class GameSituation {
 	public void setGameClock(GameClock gameClock) {
 		gameClock_ = gameClock;
 	}
+
+	public String getScoreBoardString() {
+		return "00:00.0";
+	}
 }
