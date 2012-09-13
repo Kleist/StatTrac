@@ -26,7 +26,7 @@ public class GameSituation {
 	}
 
 	public void startGame() {
-		gameClock_.resetClock();
+		gameClock_.reset();
 	}
 
 	public void setGameClock(GameClock gameClock) {

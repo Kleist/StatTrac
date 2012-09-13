@@ -18,7 +18,7 @@ public class GameClock {
 		stopped_ = true;
 	}
 	
-	void resetClock() {
+	public void reset() {
 		playedTimeUntilLastStart_ = 0;
 		stopped_ = true;
 	}

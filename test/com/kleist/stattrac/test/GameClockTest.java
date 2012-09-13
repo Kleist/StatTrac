@@ -83,4 +83,13 @@ public class GameClockTest {
 		gameClock.stop();
 		assertEquals("abcd", gameClock.getString());
 	}
+	
+	@Test
+	public void resetClockAlsoStopsClock() {
+		mockOneSecondPerCall();
+		gameClock.start();
+		gameClock.reset();
+		assertEquals(GameClock.MILLIS_PER_HALF-0, gameClock.getMillisLeft());
+		assertEquals(GameClock.MILLIS_PER_HALF-0, gameClock.getMillisLeft());
+	}
 }
