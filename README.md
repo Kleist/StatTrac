@@ -1,4 +1,4 @@
-StatTrac
-========
+Work in progress.
 
-Flag Football Stat Tracker
+The end target is an Android App capable of tracking stats (catches, TDs, etc.) in a flag football game.
+
