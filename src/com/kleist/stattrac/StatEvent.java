@@ -10,8 +10,9 @@ public enum StatEvent {
 		case INT_CAUGHT:
 		case SACK:
 			return true;
+		default:
+			return false;
 		}
-		return false;
 	}
 
 	private static final EnumMap<StatEvent, Integer> pointsPerEvent_ = initPointsPerEvent();
