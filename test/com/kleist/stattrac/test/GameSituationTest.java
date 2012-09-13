@@ -26,24 +26,26 @@ public class GameSituationTest {
 		gameSituation = new GameSituation();
 		gameClock = EasyMock.createMock(GameClock.class);
 		gameSituation.setGameClock(gameClock);
+		gameSituation.setPossession(Possession.HOME);
 	}
 	
 	@Test
 	public void posessionIsNotSetByDefault() {
+		gameSituation = new GameSituation();
 		assertEquals(Possession.NOT_SET, gameSituation.getPossession());
 	}
 	
 	@Test
 	public void canSetPossessingTeam() { 
-		gameSituation.setPossession(Possession.HOME);
-		assertEquals(Possession.HOME, gameSituation.getPossession());
 		gameSituation.setPossession(Possession.AWAY);
 		assertEquals(Possession.AWAY, gameSituation.getPossession());
+		gameSituation.setPossession(Possession.HOME);
+		assertEquals(Possession.HOME, gameSituation.getPossession());
 	}
 	
 	@Test 
 	public void possessionChangesOnTurnover() throws Exception {
-		gameSituation.setPossession(Possession.HOME);
+		assertEquals(Possession.HOME, gameSituation.getPossession());		
 		gameSituation.turnover();
 		assertEquals(Possession.AWAY, gameSituation.getPossession());
 		gameSituation.turnover();
@@ -54,6 +56,15 @@ public class GameSituationTest {
 	public void turnoverBeforePossessionIsSetThrows() throws Exception {
 		exception.expect(Exception.class);
 		exception.expectMessage("Cannot change possession before possession is set!");
+		gameSituation = new GameSituation();
+		gameSituation.turnover();
+	}
+	
+	@Test
+	public void turnoverWithin2MinTriggersClockStop() throws Exception {
+		EasyMock.expect(gameClock.getMillisLeft()).andReturn((long) (1.5*GameClock.MILLIS_PER_MINUTE));
+		gameClock.stop();
+		EasyMock.replay(gameClock);
 		gameSituation.turnover();
 	}
 	
