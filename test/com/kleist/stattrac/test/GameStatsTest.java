@@ -53,4 +53,16 @@ public class GameStatsTest {
 			}
 		}
 	}
+
+	@Test
+	public void passesDefensiveStatsOntoDefender() throws Exception {
+		Player attacker = EasyMock.createMock(Player.class);
+		Player defender = EasyMock.createMock(Player.class);
+		gameSituation.setPossession(Possession.HOME);
+		EasyMock.reset(defender);
+		defender.addEventAgainst(StatEvent.INT_THROWN);
+		EasyMock.replay(defender);
+		gameStats.addEvent(StatEvent.INT_THROWN, attacker, defender);
+		EasyMock.verify(defender);
+	}
 }
