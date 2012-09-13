@@ -31,5 +31,6 @@ public class Player {
 	}
 
 	public void addEventAgainst(StatEvent event) {
+		statCounter_.addEvent(event);
 	}
 }

@@ -43,4 +43,13 @@ public class PlayerTest {
 		player.addEvent(StatEvent.EXTRAPOINT);
 		EasyMock.verify(statCounterMock);
 	}
+	
+	@Test
+	public void forwardsEventsAgainstToStatCounter() {
+		statCounterMock.addEvent(StatEvent.INT_THROWN);
+		EasyMock.expectLastCall();
+		EasyMock.replay(statCounterMock);
+		player.addEventAgainst(StatEvent.INT_THROWN);
+		EasyMock.verify(statCounterMock);
+	}
 }
